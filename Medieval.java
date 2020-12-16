@@ -45,48 +45,44 @@ public class Medieval {
                         String name1 = userScan.nextLine();
                         i++;
 
-                        output.println(char1.toString());
-                        fw.write(char1.toString());
-                        System.out.println(char1.toString());
+                        output.println(name1 + char1.toString());
 
 
                         System.out.println("Character #" + i + " :");
                         System.out.println("What type of character? (knight, peasant, cleric, mage, or courtier?)");
-                        String type2 = userScan.nextLine();
-                        Character char2 = new Character(type2);
+                        type = userScan.nextLine();
+                        Character char2 = new Character(type);
                         System.out.println("What would you like to name your character?");
                         String name2 = userScan.nextLine();
                         i++;
 
-                        output.println(name2 + ", " + char2);
-                        gameInfo.add(char2.toString());
+                        output.println(name2 + char2.toString());
 
 
                         System.out.println("Character #" + i + " :");
                         System.out.println("What type of character? (knight, peasant, cleric, mage, or courtier?)");
-                        String type3 = userScan.nextLine();
-                        Character char3 = new Character(type3);
+                        type = userScan.nextLine();
+                        Character char3 = new Character(type);
                         System.out.println("What would you like to name your character?");
                         String name3 = userScan.nextLine();
                         i++;
 
-                        output.println(name3 + ", " + char3);
-                        gameInfo.add(char3.toString());
+                        output.println(name3 + char3.toString());
 
 
                         System.out.println("Character #" + i + " :");
                         System.out.println("What type of character? (knight, peasant, cleric, mage, or courtier?)");
-                        String type4 = userScan.nextLine();
-                        Character char4 = new Character(type4);
+                        type = userScan.nextLine();
+                        Character char4 = new Character(type);
                         System.out.println("What would you like to name your character?");
                         String name4 = userScan.nextLine();
                         i++;
 
-                        output.println(name4 + ", " + char4);
-                        gameInfo.add(char4.toString());
+                        output.println(name4 + char4.toString());
 
                     }
                 }
+
             } else if (function == 'v') {
                 System.out.println("Which file would you like to check?");
                 String fname = userScan.nextLine();
@@ -102,7 +98,6 @@ public class Medieval {
                 System.out.println("Which game are you editing?");
                 String fname = userScan.nextLine();
                 File changedFile = new File(fname);
-                Scanner fileScan = new Scanner(file);
                 System.out.println("Which character would you like to reroll? (1-4)");
                 String reChar = userScan.nextLine();
                 String oldFile = "";
@@ -128,8 +123,17 @@ public class Medieval {
                     line = br.readLine();
                 }
 
+                Character newChar = new Character();
+                String newStuff = reChar + "," + newChar;
+
                 String newContent = oldFile.replaceAll(oldFile, newStuff);
-                
+                FileWriter writer = new FileWriter(changedFile);
+                writer.write(newContent);
+
+                br.close();
+                writer.close();
+
+                System.out.println("Character has been rerolled");
 
             } else if (function == 'x') {
                 userScan.close();

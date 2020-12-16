@@ -24,6 +24,8 @@ public class Medieval {
             
             if (function != 'x') {
                 if (function == 'c') {
+                    Character characterset = new Character("null");
+                    characterset.setCount();
                     System.out.println("What file name would you like to save to?");
                     String fileName = userScan.nextLine();
                     file = new File(fileName);
@@ -72,6 +74,9 @@ public class Medieval {
                     String name4 = userScan.nextLine();
 
                     output.println(name4 + char4);
+                    System.out.println(char1.getCount());
+
+                    output.close();
 
                 }
 
@@ -84,7 +89,6 @@ public class Medieval {
 
                 int errors = 0;
 
-                
 
             } else if (function == 'r') {
                 System.out.println("Which game are you editing?");

@@ -15,8 +15,9 @@ public class Character {
 
     public Character(String type) {
         this.type = type;
+        boolean tooMany = false;
         if (type.equals("knight")) {
-            if (knights <= 2) {
+            if (knights < 2) {
                 this.strength = rand.nextInt(4) + 7;
                 this.toughness = rand.nextInt(6);
                 this.intelligence = rand.nextInt(6);
@@ -29,9 +30,10 @@ public class Character {
                 }
             } else {
                 System.out.println("You already have two knights! Choose a different type of character.");
+                tooMany = true;
             }
         } else if (type.equals("peasant")) {
-            if (peasants <= 2) {
+            if (peasants < 2) {
                 this.strength = rand.nextInt(6);
                 this.toughness = rand.nextInt(4) + 7;
                 this.intelligence = rand.nextInt(6);
@@ -44,9 +46,10 @@ public class Character {
                 peasants++;
             } else {
                 System.out.println("You already have two peasants! Choose a different type of character.");
+                tooMany = true;
             }
         } else if (type.equals("cleric")) {
-            if (clerics <= 2) {
+            if (clerics < 2) {
                 this.strength = rand.nextInt(6);
                 this.toughness = rand.nextInt(6);
                 this.intelligence = rand.nextInt(4) + 7;
@@ -59,9 +62,10 @@ public class Character {
                 clerics++;
             } else {
                 System.out.println("You already have two clerics! Choose a different type of character.");
+                tooMany = true;
             }
         } else if (type.equals("mage")) {
-            if (mages <= 2) {
+            if (mages < 2) {
                 this.strength = rand.nextInt(6);
                 this.toughness = rand.nextInt(6);
                 this.intelligence = rand.nextInt(6);
@@ -74,9 +78,10 @@ public class Character {
                 mages++;
             } else {
                 System.out.println("You already have two mages! Choose a different type of character.");
+                tooMany = true;
             }
         } else if (type.equals("courtier")) {
-            if (courtiers <= 2) {
+            if (courtiers < 2) {
                 this.strength = rand.nextInt(6);
                 this.toughness = rand.nextInt(6);
                 this.intelligence = rand.nextInt(6);
@@ -89,6 +94,7 @@ public class Character {
                 courtiers++;
             } else {
                 System.out.println("You already have two courtiers! Choose a different type of character.");
+                tooMany = true;
             }
         }
     }
@@ -178,6 +184,18 @@ public class Character {
     }
     public int getInfluence() {
         return this.influence;
+    }
+
+    public int getCount() {
+        return knights;
+    }
+
+    public void setCount() {
+        knights = 0;
+        peasants = 0;
+        clerics = 0;
+        mages = 0;
+        courtiers = 0;
     }
 
     public String toString() {

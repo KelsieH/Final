@@ -10,13 +10,13 @@ public class Character {
     private int influence;
     private String name;
     private String type;
-    private static int knights=0, peasants, clerics, mages, courtiers;
+    private static int knights=0, peasants=0, clerics=0, mages=0, courtiers=0;
     Random rand = new Random();
 
     public Character(String type) {
         this.type = type;
         if (type.equals("knight")) {
-            if (!(knights > 2)) {
+            if (knights <= 2) {
                 this.strength = rand.nextInt(4) + 7;
                 this.toughness = rand.nextInt(6);
                 this.intelligence = rand.nextInt(6);
@@ -31,7 +31,7 @@ public class Character {
                 System.out.println("You already have two knights! Choose a different type of character.");
             }
         } else if (type.equals("peasant")) {
-            if (!(peasants > 2)) {
+            if (peasants <= 2) {
                 this.strength = rand.nextInt(6);
                 this.toughness = rand.nextInt(4) + 7;
                 this.intelligence = rand.nextInt(6);
@@ -46,7 +46,7 @@ public class Character {
                 System.out.println("You already have two peasants! Choose a different type of character.");
             }
         } else if (type.equals("cleric")) {
-            if (!(clerics > 2)) {
+            if (clerics <= 2) {
                 this.strength = rand.nextInt(6);
                 this.toughness = rand.nextInt(6);
                 this.intelligence = rand.nextInt(4) + 7;
@@ -61,7 +61,7 @@ public class Character {
                 System.out.println("You already have two clerics! Choose a different type of character.");
             }
         } else if (type.equals("mage")) {
-            if (!(mages > 2)) {
+            if (mages <= 2) {
                 this.strength = rand.nextInt(6);
                 this.toughness = rand.nextInt(6);
                 this.intelligence = rand.nextInt(6);
@@ -76,7 +76,7 @@ public class Character {
                 System.out.println("You already have two mages! Choose a different type of character.");
             }
         } else if (type.equals("courtier")) {
-            if (!(courtiers > 2)) {
+            if (courtiers <= 2) {
                 this.strength = rand.nextInt(6);
                 this.toughness = rand.nextInt(6);
                 this.intelligence = rand.nextInt(6);
@@ -94,31 +94,31 @@ public class Character {
     }
 
     public void reroll() {
-        if (type == "knight") {
+        if (type.equals("knight")) {
             this.strength = rand.nextInt(4) + 7;
             this.toughness = rand.nextInt(6);
             this.intelligence = rand.nextInt(6);
             this.magic = rand.nextInt(6);
             this.influence = rand.nextInt(6);
-        } else if (type == "peasant") {
+        } else if (type.equals("peasant")) {
             this.strength = rand.nextInt(6);
             this.toughness = rand.nextInt(4) + 7;
             this.intelligence = rand.nextInt(6);
             this.magic = rand.nextInt(6);
             this.influence = rand.nextInt(6);
-        } else if (type == "cleric") {
+        } else if (type.equals("cleric")) {
             this.strength = rand.nextInt(6);
             this.toughness = rand.nextInt(6);
             this.intelligence = rand.nextInt(4) + 7;
             this.magic = rand.nextInt(6);
             this.influence = rand.nextInt(6);
-        } else if (type == "mage") {
+        } else if (type.equals("mage")) {
             this.strength = rand.nextInt(6);
             this.toughness = rand.nextInt(6);
             this.intelligence = rand.nextInt(6);
             this.magic = rand.nextInt(4) + 7;
             this.influence = rand.nextInt(6);
-        } else if (type == "courtier") {
+        } else if (type.equals("courtier")) {
             this.strength = rand.nextInt(6);
             this.toughness = rand.nextInt(6);
             this.intelligence = rand.nextInt(6);
@@ -131,31 +131,31 @@ public class Character {
         String[] types = {"knight", "peasant", "cleric", "mage", "courtier"};
         this.type = types[rand.nextInt(4)];
 
-        if (type == "knight") {
+        if (type.equals("knight")) {
             this.strength = rand.nextInt(4) + 7;
             this.toughness = rand.nextInt(6);
             this.intelligence = rand.nextInt(6);
             this.magic = rand.nextInt(6);
             this.influence = rand.nextInt(6);
-        } else if (type == "peasant") {
+        } else if (type.equals("peasant")) {
             this.strength = rand.nextInt(6);
             this.toughness = rand.nextInt(4) + 7;
             this.intelligence = rand.nextInt(6);
             this.magic = rand.nextInt(6);
             this.influence = rand.nextInt(6);
-        } else if (type == "cleric") {
+        } else if (type.equals("cleric")) {
             this.strength = rand.nextInt(6);
             this.toughness = rand.nextInt(6);
             this.intelligence = rand.nextInt(4) + 7;
             this.magic = rand.nextInt(6);
             this.influence = rand.nextInt(6);
-        } else if (type == "mage") {
+        } else if (type.equals("mage")) {
             this.strength = rand.nextInt(6);
             this.toughness = rand.nextInt(6);
             this.intelligence = rand.nextInt(6);
             this.magic = rand.nextInt(4) + 7;
             this.influence = rand.nextInt(6);
-        } else if (type == "courtier") {
+        } else if (type.equals("courtier")) {
             this.strength = rand.nextInt(6);
             this.toughness = rand.nextInt(6);
             this.intelligence = rand.nextInt(6);
@@ -179,7 +179,7 @@ public class Character {
     public int getInfluence() {
         return this.influence;
     }
-    
+
     public String toString() {
         return "\n" + this.type + "," + this.strength + "," + this.toughness + "," + this.intelligence + "," + this.influence; 
     }

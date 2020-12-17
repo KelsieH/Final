@@ -42,7 +42,7 @@ public class Medieval {
                     System.out.println("What would you like to name your character?");
                     String name1 = userScan.nextLine();
 
-                    output.println(name1 + char1);
+                    output.println("\n" + name1 + "," + char1);
                     System.out.println(char1);
 
 
@@ -53,7 +53,7 @@ public class Medieval {
                     System.out.println("What would you like to name your character?");
                     String name2 = userScan.nextLine();
 
-                    output.println(name2 + char2);
+                    output.println("\n" + name2 + "," + char2);
 
 
                     System.out.println("Character #3:");
@@ -63,7 +63,7 @@ public class Medieval {
                     System.out.println("What would you like to name your character?");
                     String name3 = userScan.nextLine();
 
-                    output.println(name3 + char3);
+                    output.println("\n" + name3 + "," + char3);
 
 
                     System.out.println("Character #4:");
@@ -73,67 +73,104 @@ public class Medieval {
                     System.out.println("What would you like to name your character?");
                     String name4 = userScan.nextLine();
 
-                    output.println(name4 + char4);
-                    System.out.println(char1.getCount());
+                    output.println("\n" + name4 + "," + char4);
 
                     output.close();
 
-                }
+                } else if (function == 'v') {
+                    System.out.println("Which file would you like to check?");
+                    String fileName = userScan.nextLine();
 
-            } else if (function == 'v') {
-                System.out.println("Which file would you like to check?");
-                String fname = userScan.nextLine();
+                    file = new File(fileName);
+                    Scanner fileScan = new Scanner(file);
 
-                file = new File(fname);
-                Scanner fileScan = new Scanner(file);
+                    int errors = 0;
 
-                int errors = 0;
+                    System.out.println("\n");
+                    fileScan.nextLine();
+                    while (fileScan.hasNextLine()) {
+                        ArrayList<String> info = new ArrayList<String>();
+                        String current = fileScan.nextLine();
+                        System.out.println(current);
 
-
-            } else if (function == 'r') {
-                System.out.println("Which game are you editing?");
-                String fname = userScan.nextLine();
-                File changedFile = new File(fname);
-                System.out.println("Which character would you like to reroll? (1-4)");
-                String reChar = userScan.nextLine();
-                String oldFile = "";
-                String s;
-                String[] split = null;
-                ArrayList<String> names = new ArrayList<String>();
-
-                FileReader fr = new FileReader(changedFile);
-                BufferedReader br = new BufferedReader(fr);
-                while ((s=br.readLine()) != null) {
-                    split = s.split(",");
-                    for (String word : split) {
-                        if (word.equals(reChar)) {
-                            names.add(split[0].toLowerCase());
-                            System.out.println(word);
+                        for (String word : current.split(",")) {
+                            info.add(word);
                         }
+
+                        if (!charCheck(info)) {
+                            errors++;
+                        }
+
+                        System.out.println("Errors: " + errors);
+                    }
+
+                    if (errors > 0) {
+                        System.out.println("\nThere are errors in your file.");
+                    } else {
+                        System.out.println("\nThere are no errors with your file.");
+                    }
+
+                    fileScan.close();
+
+                } else if (function == 'r') {
+                    System.out.println("Which game are you editing?");
+                    String fname = userScan.nextLine();
+                    File changedFile = new File(fname);
+                    String oldFile = "";
+                    String[] split = null;
+                    Scanner fileScan = new Scanner(changedFile);
+
+                    ArrayList<String> names = new ArrayList<String>();
+                    while (fileScan.hasNextLine()) {
+                        String line = fileScan.nextLine();
+                        split = line.split(",");
+                        names.add(split[0].toLowerCase());
+                        System.out.println(line);
+                    }
+
+                    names.remove(0);
+
+                    System.out.println("Which character would you like to reroll?");
+                    String reChar = userScan.nextLine();
+
+                    for (int i = 0; i < changedFile.length()-1; i++ ) {
+                        if (reChar.toLowerCase().equals(names.get(i))) {
+                            int match = i;
+                            Character newChar = new Character();
+                            String newStuff = reChar + "," + newChar;
+                            ArrayList<String> oldContent = new ArrayList<String>();
+
+                            FileReader fr = new FileReader(changedFile);
+                            BufferedReader br = new BufferedReader(fr);
+                            String line = br.readLine();
+                            while (line != null) {
+                                oldFile = oldFile + line + System.lineSeparator();
+                                oldContent.add(line);
+                                line = br.readLine();
+                            }
+
+                            String oldStuff = oldContent.get(match + 1);
+                            String oldStuffString = String.join("\n", oldContent);
+
+                            String newContent = oldStuffString.replaceAll(oldStuff, newStuff);
+                            FileWriter writer = new FileWriter(changedFile);
+                            writer.write(newContent);
+
+                            br.close();
+                            writer.close();
+
+                            System.out.println("Character has been rerolled");
+                        } else {
+                            System.out.println("Character not found!");
+                        }
+                        fileScan.close();
                     }
                 }
-
-                String line = br.readLine();
-                while (line != null) {
-                    oldFile = oldFile + line + System.lineSeparator();
-                    line = br.readLine();
-                }
-
-                Character newChar = new Character();
-                String newStuff = reChar + "," + newChar;
-
-                String newContent = oldFile.replaceAll(oldFile, newStuff);
-                FileWriter writer = new FileWriter(changedFile);
-                writer.write(newContent);
-
-                br.close();
-                writer.close();
-
-                System.out.println("Character has been rerolled");
-
             } else if (function == 'x') {
                 userScan.close();
                 System.exit(0);
+            } else {
+                System.out.println("Not a valid option");
             }
         } catch (FileNotFoundException e) {
             System.out.println("File does not exist");
@@ -144,6 +181,34 @@ public class Medieval {
     public static void menu() {
         System.out.println("\n|| Menu ||");
         System.out.println("\n\t➼ Create a new game (c) \n\t➼ Validate a save file (v) \n\t➼ Reroll/randomize an existing character (r) \n\t➼ Quit (x)");
+    }
+
+    public static boolean charCheck(ArrayList<String> info) {
+        int statsumm = 0;
+
+        if (info.size() < 7) {
+            return false;
+        } else if (info.size() == 7) {
+            statsumm = Integer.parseInt(info.get(2)) + Integer.parseInt(info.get(3)) + Integer.parseInt(info.get(4)) + Integer.parseInt(info.get(5)) + Integer.parseInt(info.get(6));
+
+        }
+
+        if (statsumm > 28 || statsumm < 8) {
+            return false;
+        } else if ((info.get(1)).equals("knight") && (Integer.parseInt(info.get(2)) >= 11 || Integer.parseInt(info.get(2)) <= 6)) {
+            return false;
+        } else if ((info.get(1)).equals("peasant") && (Integer.parseInt(info.get(3)) >= 11 || Integer.parseInt(info.get(3)) <= 6)) {
+            return false;
+        }  else if ((info.get(1)).equals("cleric") && (Integer.parseInt(info.get(4)) >= 11 || Integer.parseInt(info.get(4)) <= 6)) {
+            return false;
+        }  else if ((info.get(1)).equals("mage") && (Integer.parseInt(info.get(5)) >= 11 || Integer.parseInt(info.get(5)) <= 6)) {
+            return false;
+        } else if ((info.get(1)).equals("courtier") && (Integer.parseInt(info.get(6)) >= 11 || Integer.parseInt(info.get(6)) <= 6)) {
+            return false;
+        } else if ((info.get(1)).equals("knight") || (info.get(1)).equals("peasant") || (info.get(1)).equals("cleric") || (info.get(1)).equals("mage") || (info.get(1)).equals("courtier")) {
+            return true;
+        }
+        return false;
     }
 
 }

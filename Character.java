@@ -15,7 +15,6 @@ public class Character {
 
     public Character(String type) {
         this.type = type;
-        boolean tooMany = false;
         if (type.equals("knight")) {
             if (knights < 2) {
                 this.strength = rand.nextInt(4) + 7;
@@ -29,8 +28,7 @@ public class Character {
                     reroll();
                 }
             } else {
-                System.out.println("You already have two knights! Choose a different type of character.");
-                tooMany = true;
+                System.out.println("You already have two knights!");
             }
         } else if (type.equals("peasant")) {
             if (peasants < 2) {
@@ -45,8 +43,7 @@ public class Character {
                 }
                 peasants++;
             } else {
-                System.out.println("You already have two peasants! Choose a different type of character.");
-                tooMany = true;
+                System.out.println("You already have two peasants!");
             }
         } else if (type.equals("cleric")) {
             if (clerics < 2) {
@@ -61,8 +58,7 @@ public class Character {
                 }
                 clerics++;
             } else {
-                System.out.println("You already have two clerics! Choose a different type of character.");
-                tooMany = true;
+                System.out.println("You already have two clerics!");
             }
         } else if (type.equals("mage")) {
             if (mages < 2) {
@@ -77,8 +73,7 @@ public class Character {
                 }
                 mages++;
             } else {
-                System.out.println("You already have two mages! Choose a different type of character.");
-                tooMany = true;
+                System.out.println("You already have two mages!");
             }
         } else if (type.equals("courtier")) {
             if (courtiers < 2) {
@@ -93,8 +88,7 @@ public class Character {
                 }
                 courtiers++;
             } else {
-                System.out.println("You already have two courtiers! Choose a different type of character.");
-                tooMany = true;
+                System.out.println("You already have two courtiers!");
             }
         }
     }
@@ -186,10 +180,6 @@ public class Character {
         return this.influence;
     }
 
-    public int getCount() {
-        return knights;
-    }
-
     public void setCount() {
         knights = 0;
         peasants = 0;
@@ -198,8 +188,16 @@ public class Character {
         courtiers = 0;
     }
 
+    public boolean tooMany() {
+        if (knights > 2 || peasants > 2 || clerics > 2 || mages > 2 || courtiers > 2) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
     public String toString() {
-        return "\n" + this.type + "," + this.strength + "," + this.toughness + "," + this.intelligence + "," + this.influence; 
+        return this.type + "," + this.strength + "," + this.toughness + "," + this.intelligence + "," + this.influence; 
     }
 
 }

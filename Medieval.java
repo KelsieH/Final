@@ -24,7 +24,7 @@ public class Medieval {
             
             if (function != 'x') {
                 if (function == 'c') {
-                    Character characterset = new Character("null");
+                    Character characterset = new Character();
                     characterset.setCount();
                     System.out.println("What file name would you like to save to?");
                     String fileName = userScan.nextLine();
@@ -42,8 +42,11 @@ public class Medieval {
                     System.out.println("What would you like to name your character?");
                     String name1 = userScan.nextLine();
 
-                    output.println("\n" + name1 + "," + char1);
-                    System.out.println(char1);
+                    if (!char1.tooMany()) {
+                        output.println("\n" + name1 + "," + char1);
+                    } else {
+                        char1.reroll();
+                    }
 
 
                     System.out.println("Character #2:");
@@ -53,8 +56,11 @@ public class Medieval {
                     System.out.println("What would you like to name your character?");
                     String name2 = userScan.nextLine();
 
-                    output.println("\n" + name2 + "," + char2);
-
+                    if (!char2.tooMany()) {
+                        output.println("\n" + name2 + "," + char2);
+                    } else {
+                        char2.reroll();
+                    }
 
                     System.out.println("Character #3:");
                     System.out.println("What type of character? (knight, peasant, cleric, mage, or courtier?)");
@@ -63,7 +69,11 @@ public class Medieval {
                     System.out.println("What would you like to name your character?");
                     String name3 = userScan.nextLine();
 
-                    output.println("\n" + name3 + "," + char3);
+                    if (!char3.tooMany()) {
+                        output.println("\n" + name3 + "," + char3);
+                    } else {
+                        char3.reroll();
+                    }
 
 
                     System.out.println("Character #4:");
@@ -73,7 +83,11 @@ public class Medieval {
                     System.out.println("What would you like to name your character?");
                     String name4 = userScan.nextLine();
 
-                    output.println("\n" + name4 + "," + char4);
+                    if (!char4.tooMany()) {
+                        output.println("\n" + name4 + "," + char4);
+                    } else {
+                        char4.reroll();
+                    }
 
                     output.close();
 

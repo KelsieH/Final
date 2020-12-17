@@ -28,7 +28,7 @@ public class Character {
                     reroll();
                 }
             } else {
-                System.out.println("You already have two knights!");
+                System.out.println("You already have two knights! Rolling random...");
             }
         } else if (type.equals("peasant")) {
             if (peasants < 2) {
@@ -43,7 +43,7 @@ public class Character {
                 }
                 peasants++;
             } else {
-                System.out.println("You already have two peasants!");
+                System.out.println("You already have two peasants! Rolling random...");
             }
         } else if (type.equals("cleric")) {
             if (clerics < 2) {
@@ -58,7 +58,7 @@ public class Character {
                 }
                 clerics++;
             } else {
-                System.out.println("You already have two clerics!");
+                System.out.println("You already have two clerics! Rolling random...");
             }
         } else if (type.equals("mage")) {
             if (mages < 2) {
@@ -73,7 +73,7 @@ public class Character {
                 }
                 mages++;
             } else {
-                System.out.println("You already have two mages!");
+                System.out.println("You already have two mages! Rolling random...");
             }
         } else if (type.equals("courtier")) {
             if (courtiers < 2) {
@@ -88,12 +88,17 @@ public class Character {
                 }
                 courtiers++;
             } else {
-                System.out.println("You already have two courtiers!");
+                System.out.println("You already have two courtiers! Rolling random...");
             }
+        } else if (!(type.equals("courtier")) && !(type.equals("mage")) && !(type.equals("cleric")) && !(type.equals("peasant")) && !(type.equals("knight"))) {
+            System.out.println("Type does not exist! Rolling random...");
+            reroll();
         }
     }
 
     public void reroll() {
+        String[] types = {"knight", "peasant", "cleric", "mage", "courtier"};
+        this.type = types[rand.nextInt(4)];
         if (type.equals("knight")) {
             this.strength = rand.nextInt(4) + 7;
             this.toughness = rand.nextInt(6);
@@ -197,7 +202,7 @@ public class Character {
     }
 
     public String toString() {
-        return this.type + "," + this.strength + "," + this.toughness + "," + this.intelligence + "," + this.influence; 
+        return this.type + "," + this.strength + "," + this.toughness + "," + this.intelligence + "," + this.magic + "," + this.influence; 
     }
 
 }
